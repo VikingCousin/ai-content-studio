@@ -1,0 +1,47 @@
+{
+  "name": "AI Content Studio - PUBLIC TEMPLATE - NOT READY TO ACTIVATE",
+  "description": "Sanitized five-step prototype, not the current live Make workflow.",
+  "flow": [
+    {
+      "id": 1,
+      "module": "google-drive:watchFilesInAFolder",
+      "parameters": {
+        "limit": 1,
+        "folderId": "REPLACE_WITH_SOURCE_FOLDER_ID"
+      }
+    },
+    {
+      "id": 2,
+      "module": "google-drive:downloadAFile",
+      "mapper": {
+        "file": "{{1.id}}"
+      }
+    },
+    {
+      "id": 3,
+      "module": "notion:searchObjects1",
+      "mapper": {
+        "limit": 1,
+        "data_source": "REPLACE_WITH_NOTION_DATA_SOURCE_ID"
+      }
+    },
+    {
+      "id": 4,
+      "module": "openai-gpt-3:editImage",
+      "mapper": {
+        "model": "gpt-image-1.5",
+        "prompt": "Preserve the person's recognizable identity. Apply a professional photographic style. No text or watermarks. This is a static placeholder prompt.",
+        "image": "REPLACE_WITH_IMAGE_MAPPING"
+      }
+    },
+    {
+      "id": 5,
+      "module": "google-drive:uploadAFile",
+      "mapper": {
+        "folderId": "REPLACE_WITH_OUTPUT_FOLDER_ID",
+        "name": "REPLACE_WITH_OUTPUT_FILENAME",
+        "data": "REPLACE_WITH_GENERATED_IMAGE_MAPPING"
+      }
+    }
+  ]
+}
